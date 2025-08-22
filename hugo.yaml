@@ -1,0 +1,104 @@
+# hugo.yaml - Main Hugo configuration
+baseURL: 'https://cloudarchitect-blog.netlify.app'
+languageCode: 'en-us'
+title: 'Cloud Solutions Architect Blog'
+theme: 'cloudarchitect-theme'
+
+params:
+  author: 'Your Name'
+  description: 'Sharing insights on Azure, Kubernetes, and cloud-native technologies'
+  email: 'your-email@example.com'
+  github: 'yourgithub'
+  linkedin: 'yourlinkedin'
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: 'github'
+    lineNos: true
+
+menu:
+  main:
+    - identifier: 'home'
+      name: 'Home'
+      url: '/'
+      weight: 1
+    - identifier: 'about'
+      name: 'About'
+      url: '/about/'
+      weight: 2
+    - identifier: 'articles'
+      name: 'Articles'
+      url: '/posts/'
+      weight: 3
+    - identifier: 'contact'
+      name: 'Contact'
+      url: '/contact/'
+      weight: 4
+
+---
+# netlify.toml - Netlify deployment configuration
+[build]
+  publish = "public"
+  command = "hugo --gc --minify"
+
+[context.production.environment]
+  HUGO_VERSION = "0.121.1"
+  HUGO_ENV = "production"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.split1]
+  command = "hugo --gc --minify --enableGitInfo"
+
+[context.split1.environment]
+  HUGO_VERSION = "0.121.1"
+  HUGO_ENV = "production"
+
+[context.deploy-preview]
+  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+
+[context.deploy-preview.environment]
+  HUGO_VERSION = "0.121.1"
+
+[context.branch-deploy]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+
+[context.branch-deploy.environment]
+  HUGO_VERSION = "0.121.1"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+---
+# Directory structure to create:
+# 
+# cloudarchitect-blog/
+# ├── hugo.yaml
+# ├── netlify.toml
+# ├── content/
+# │   ├── _index.md
+# │   ├── about.md
+# │   ├── contact.md
+# │   └── posts/
+# │       └── azure-identity-types/
+# │           └── index.md
+# ├── static/
+# │   └── images/
+# ├── layouts/
+# │   ├── _default/
+# │   │   ├── baseof.html
+# │   │   ├── single.html
+# │   │   └── list.html
+# │   ├── partials/
+# │   │   ├── head.html
+# │   │   ├── header.html
+# │   │   └── footer.html
+# │   └── index.html
+# └── assets/
+#     └── css/
+#         └── main.css

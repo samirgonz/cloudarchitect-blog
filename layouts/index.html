@@ -1,0 +1,80 @@
+{{ define "main" }}
+<section class="hero">
+    <div class="container">
+        <h1>{{ .Site.Title }}</h1>
+        <p>{{ .Site.Params.description }}</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="profile-card">
+                <div class="profile-img">☁️</div>
+                <h3>Cloud Solutions Architect</h3>
+                <p>15+ Years in IT</p>
+                <div style="margin-top: 1rem;">
+                    <span class="tech-badge">Azure</span>
+                    <span class="tech-badge">Kubernetes</span>
+                    <span class="tech-badge">OpenShift</span>
+                    <span class="tech-badge">Terraform</span>
+                </div>
+            </div>
+            
+            <div>
+                <h3 style="color: #764ba2; margin-bottom: 1rem;">Professional Synopsis</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    Passionate Cloud Solutions Architect with over 15 years of comprehensive IT experience, 
+                    specializing in designing and implementing scalable, secure, and cost-effective cloud solutions. 
+                    Expert in Microsoft Azure ecosystem with deep knowledge of containerization technologies.
+                </p>
+                
+                <div class="experience-grid">
+                    <div class="skill-card">
+                        <h3>☁️ Cloud Platforms</h3>
+                        <p>Microsoft Azure specialist with extensive experience in cloud architecture, migration strategies, and optimization.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <h3>🐳 Containerization</h3>
+                        <p>Kubernetes expert with hands-on experience in OpenShift for enterprise container orchestration.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <h3>🏗️ Infrastructure as Code</h3>
+                        <p>Terraform and ARM templates for automated, repeatable infrastructure deployments.</p>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <h3>🔒 Security & Compliance</h3>
+                        <p>Identity management, security best practices, and compliance frameworks implementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="articles-section">
+    <div class="container">
+        <h2 class="section-title">Latest Articles</h2>
+        <div class="articles-grid">
+            {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
+            <article class="article-card">
+                <div class="article-header">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                </div>
+                <div class="article-content">
+                    <p>{{ .Summary }}</p>
+                    <div class="article-meta">
+                        <span>📅 {{ .Date.Format "January 2, 2006" }}</span>
+                        <a href="{{ .RelPermalink }}" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}

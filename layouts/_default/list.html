@@ -1,0 +1,23 @@
+{{ define "main" }}
+<section class="articles-section">
+    <div class="container">
+        <h1 class="section-title">{{ .Title }}</h1>
+        <div class="articles-grid">
+            {{ range .Pages }}
+            <article class="article-card">
+                <div class="article-header">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                </div>
+                <div class="article-content">
+                    <p>{{ .Summary }}</p>
+                    <div class="article-meta">
+                        <span>📅 {{ .Date.Format "January 2, 2006" }}</span>
+                        <a href="{{ .RelPermalink }}" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
