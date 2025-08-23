@@ -55,10 +55,6 @@ enable = false
 number = ""
 url = ""
 
-[params.footer.license]
-enable = false
-url = ""
-info = ""
 
 [params.section]
 paginate = 20
