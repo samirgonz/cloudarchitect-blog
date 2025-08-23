@@ -36,7 +36,7 @@ Infrastructure as Code (IaC) has become essential for modern cloud operations, e
 
 ### The Complete Implementation Vision
 
-```mermaid
+{{< mermaid >}}
 graph TB
     A[Developer] --> B[Git Repository]
     B --> C[CI/CD Pipeline]
@@ -48,7 +48,7 @@ graph TB
     H --> A
     F --> I[Application Deployment]
     I --> G
-```
+{{< /mermaid >}}
 
 **Phase 1**: Infrastructure as Code (Terraform/OpenTofu)
 **Phase 2**: CI/CD Pipeline Implementation (GitHub Actions)  
