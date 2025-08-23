@@ -1,6 +1,6 @@
 baseURL: 'https://cloudarchitect-blog.netlify.app'
 languageCode: 'en-us'
-title: 'Cloud Solutions Architect Blog'
+title: "Samir's Cloud Architecture Blog"
 theme: 'LoveIt'
 
 params:
@@ -14,7 +14,7 @@ params:
   keywords: ["Azure", "Kubernetes", "Cloud", "DevOps", "Architecture"]
   
   app:
-    title: "Cloud Solutions Architect Blog"
+    title: "Samir's Cloud Architecture Blog"
     noFavicon: false
     svgFavicon: ""
     themeColor: "#ffffff"
@@ -36,7 +36,7 @@ params:
     mobileMode: "auto"
     title:
       logo: ""
-      name: "Cloud Solutions Architect Blog"
+      name: "Samir's Cloud Architecture Blog"
       pre: ""
       post: ""
       typeit: false
