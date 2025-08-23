@@ -112,6 +112,9 @@ blockRightDelimiter = ""
 copyTex = true
 mhchem = true
 
+[params.page.mermaid]
+enable = true
+
 [params.page.share]
 enable = true
 Twitter = true
