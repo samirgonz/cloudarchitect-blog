@@ -36,7 +36,7 @@ desktopMode = "fixed"
 mobileMode = "auto"
 
 [params.header.title]
-logo = ""
+logo = "/images/Personalpic.jpg"
 name = "Samir's Cloud Architecture Blog"
 pre = ""
 post = ""
