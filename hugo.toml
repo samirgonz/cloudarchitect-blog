@@ -44,16 +44,10 @@ typeit = false
 
 [params.footer]
 enable = true
-custom = ''
 hugo = false
 copyright = true
 author = true
 since = 2024
-
-[params.footer.icp]
-enable = false
-number = ""
-url = ""
 
 
 [params.section]
