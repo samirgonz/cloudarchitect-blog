@@ -5,15 +5,13 @@ theme = 'LoveIt'
 
 [params]
 version = "0.2.X"
+description = "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
+keywords = ["Azure", "Kubernetes", "Cloud", "DevOps", "Architecture"]
 
 [params.author]
 name = "Samir Gonzalez"
 email = "samirgonz@gmail.com"
 link = ""
-
-[params]
-description = "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
-keywords = ["Azure", "Kubernetes", "Cloud", "DevOps", "Architecture"]
 
 [params.app]
 title = "Samir's Cloud Architecture Blog"
