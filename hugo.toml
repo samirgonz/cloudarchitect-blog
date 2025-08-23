@@ -78,7 +78,7 @@ rss = 10
 [params.home.profile]
 enable = true
 gravatarEmail = ""
-avatarURL = "/images/avatar.png"
+avatarURL = "/images/Personalpic.jpg"
 title = "Cloud Solutions Architect"
 subtitle = "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
 typeit = true
@@ -141,7 +141,7 @@ enable = false
 
 [params.seo.publisher]
 name = "Samir Gonzalez"
-logoUrl = "/images/avatar.png"
+logoUrl = "/images/Personalpic.jpg"
 
 [markup.goldmark.renderer]
 unsafe = true
