@@ -37,12 +37,17 @@ Infrastructure as Code (IaC) has become essential for modern cloud operations, e
 ### The Complete Implementation Vision
 
 ```mermaid
-graph LR
+graph TB
     A[Developer] --> B[Git Repository]
     B --> C[CI/CD Pipeline]
     C --> D[Infrastructure Deployment]
     D --> E[Configuration Management]
     E --> F[Production Environment]
+    F --> G[Monitoring & Feedback]
+    G --> H[Issues & Changes]
+    H --> A
+    F --> I[Application Deployment]
+    I --> G
 ```
 
 **Phase 1**: Infrastructure as Code (Terraform/OpenTofu)
@@ -180,15 +185,21 @@ Infrastructure defined and managed through code rather than manual processes.
 | **Long-term Risk** | Vendor lock-in | Open-source freedom |
 | **Learning Curve** | Same syntax | Identical syntax |
 
-**Terraform Pricing Model**:
-- **Terraform Cloud Free**: Up to 5 users
-- **Terraform Cloud Team**: $20/user/month
-- **Terraform Cloud Business**: $70/user/month
+**Terraform Licensing and Costs**:
+- **BSL License Impact**: Since August 2023, Terraform uses Business Source License (BSL)
+- **Commercial Use**: Requires HashiCorp license for production use in companies >$10M revenue
+- **Self-managed Terraform**: Licensing fees apply for commercial use (contact HashiCorp)
+- **Terraform Cloud**: Additional SaaS costs on top of licensing
 
-**Estimated Monthly Costs** (10-person team):
-- **OpenTofu**: $0 (open-source)
-- **Terraform Cloud Team**: $200/month
-- **Terraform Cloud Business**: $700/month
+**HashiCorp Pricing Structure**:
+- **Small teams/startups**: Often free under BSL limits
+- **Enterprise licensing**: Custom pricing (typically $thousands annually)
+- **Terraform Cloud**: $20-70/user/month additional costs
+
+**Cost Comparison** (Enterprise 10-person team):
+- **OpenTofu**: $0 (fully open-source, no licensing restrictions)
+- **Terraform**: $5,000-15,000/year (estimated licensing) + Cloud costs
+- **Total Terraform costs**: $7,400-22,400/year including Cloud services
 
 **Recommendation**: Start with **OpenTofu** to avoid licensing risks and costs, with easy migration path to Terraform if needed.
 
