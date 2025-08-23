@@ -6,8 +6,8 @@ theme: 'LoveIt'
 params:
   version: 0.2.X
   author:
-    name: "Your Name"
-    email: "your-email@example.com"
+    name: "Samir Gonzalez"
+    email: "samirgonz@gmail.com"
     link: ""
   
   description: "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
@@ -84,9 +84,9 @@ params:
       defaultHiddenFromHomePage: false
   
   social:
-    GitHub: "yourgithub"
-    Linkedin: "yourlinkedin"
-    Email: "your-email@example.com"
+    GitHub: "https://github.com/samirgonz"
+    Linkedin: "https://www.linkedin.com/in/samirgonz/"
+    Email: "samirgonz@gmail.com"
   
   page:
     hiddenFromHomePage: false
@@ -154,7 +154,7 @@ params:
     seo:
       images: []
       publisher:
-        name: "Your Name"
+        name: "Samir Gonzalez"
         logoUrl: "/images/avatar.png"
 
 markup:
