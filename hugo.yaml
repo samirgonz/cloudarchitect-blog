@@ -1,104 +1,203 @@
-# hugo.yaml - Main Hugo configuration
 baseURL: 'https://cloudarchitect-blog.netlify.app'
 languageCode: 'en-us'
 title: 'Cloud Solutions Architect Blog'
-theme: 'cloudarchitect-theme'
+theme: 'LoveIt'
 
 params:
-  author: 'Your Name'
-  description: 'Sharing insights on Azure, Kubernetes, and cloud-native technologies'
-  email: 'your-email@example.com'
-  github: 'yourgithub'
-  linkedin: 'yourlinkedin'
+  version: 0.2.X
+  author:
+    name: "Your Name"
+    email: "your-email@example.com"
+    link: ""
+  
+  description: "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
+  keywords: ["Azure", "Kubernetes", "Cloud", "DevOps", "Architecture"]
+  
+  app:
+    title: "Cloud Solutions Architect Blog"
+    noFavicon: false
+    svgFavicon: ""
+    themeColor: "#ffffff"
+    iconColor: "#5bbad5"
+    tileColor: "#da532c"
+  
+  search:
+    enable: true
+    type: "fuse"
+    contentLength: 4000
+    placeholder: ""
+    maxResultLength: 10
+    snippetLength: 30
+    highlightTag: "em"
+    absoluteURL: false
+  
+  header:
+    desktopMode: "fixed"
+    mobileMode: "auto"
+    title:
+      logo: ""
+      name: "Cloud Solutions Architect Blog"
+      pre: ""
+      post: ""
+      typeit: false
+  
+  footer:
+    enable: true
+    custom: ''
+    hugo: false
+    copyright: true
+    author: true
+    since: 2024
+    icp:
+      enable: false
+      number: ""
+      url: ""
+    license:
+      enable: false
+      url: ""
+      info: ""
+  
+  section:
+    paginate: 20
+    dateFormat: "01-02"
+    rss: 10
+  
+  list:
+    paginate: 20
+    dateFormat: "01-02"
+    rss: 10
+  
+  home:
+    rss: 10
+    profile:
+      enable: true
+      gravatarEmail: ""
+      avatarURL: "/images/avatar.png"
+      title: "Cloud Solutions Architect"
+      subtitle: "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
+      typeit: true
+      social: true
+      disclaimer: ""
+    posts:
+      enable: true
+      paginate: 6
+      defaultHiddenFromHomePage: false
+  
+  social:
+    GitHub: "yourgithub"
+    Linkedin: "yourlinkedin"
+    Email: "your-email@example.com"
+  
+  page:
+    hiddenFromHomePage: false
+    hiddenFromSearch: false
+    twemoji: false
+    lightgallery: false
+    ruby: true
+    fraction: true
+    fontawesome: true
+    linkToMarkdown: true
+    rssFullText: false
+    toc:
+      enable: true
+      keepStatic: true
+      auto: true
+    code:
+      copy: true
+      maxShownLines: 50
+    math:
+      enable: false
+      inlineLeftDelimiter: ""
+      inlineRightDelimiter: ""
+      blockLeftDelimiter: ""
+      blockRightDelimiter: ""
+      copyTex: true
+      mhchem: true
+    mapbox:
+      accessToken: ""
+      lightStyle: "mapbox://styles/mapbox/light-v10?optimize=true"
+      darkStyle: "mapbox://styles/mapbox/dark-v10?optimize=true"
+      navigation: true
+      geolocate: true
+      scale: true
+      fullscreen: true
+    share:
+      enable: true
+      Twitter: true
+      Facebook: true
+      Linkedin: true
+      Whatsapp: false
+      Pinterest: false
+      Tumblr: false
+      HackerNews: true
+      Reddit: true
+      VK: false
+      Buffer: false
+      Xing: false
+      Line: false
+      Instapaper: false
+      Pocket: false
+      Flipboard: false
+      Weibo: false
+      Blogger: false
+      Baidu: false
+      Odnoklassniki: false
+      Evernote: false
+      Skype: false
+      Trello: false
+      Mix: false
+    comment:
+      enable: false
+    library:
+      css: []
+      js: []
+    seo:
+      images: []
+      publisher:
+        name: "Your Name"
+        logoUrl: "/images/avatar.png"
 
 markup:
   goldmark:
     renderer:
       unsafe: true
   highlight:
-    style: 'github'
+    codeFences: true
+    guessSyntax: true
     lineNos: true
+    lineNumbersInTable: true
+    noClasses: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 6
 
 menu:
   main:
-    - identifier: 'home'
-      name: 'Home'
-      url: '/'
+    - identifier: home
+      pre: ""
+      post: ""
+      name: "Home"
+      url: "/"
+      title: ""
       weight: 1
-    - identifier: 'about'
-      name: 'About'
-      url: '/about/'
+    - identifier: posts
+      pre: ""
+      post: ""
+      name: "Posts"
+      url: "/posts/"
+      title: ""
       weight: 2
-    - identifier: 'articles'
-      name: 'Articles'
-      url: '/posts/'
+    - identifier: about
+      pre: ""
+      post: ""
+      name: "About"
+      url: "/about/"
+      title: ""
       weight: 3
-    - identifier: 'contact'
-      name: 'Contact'
-      url: '/contact/'
+    - identifier: contact
+      pre: ""
+      post: ""
+      name: "Contact"
+      url: "/contact/"
+      title: ""
       weight: 4
-
----
-# netlify.toml - Netlify deployment configuration
-[build]
-  publish = "public"
-  command = "hugo --gc --minify"
-
-[context.production.environment]
-  HUGO_VERSION = "0.121.1"
-  HUGO_ENV = "production"
-  HUGO_ENABLEGITINFO = "true"
-
-[context.split1]
-  command = "hugo --gc --minify --enableGitInfo"
-
-[context.split1.environment]
-  HUGO_VERSION = "0.121.1"
-  HUGO_ENV = "production"
-
-[context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
-
-[context.deploy-preview.environment]
-  HUGO_VERSION = "0.121.1"
-
-[context.branch-deploy]
-  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
-
-[context.branch-deploy.environment]
-  HUGO_VERSION = "0.121.1"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-
----
-# Directory structure to create:
-# 
-# cloudarchitect-blog/
-# ├── hugo.yaml
-# ├── netlify.toml
-# ├── content/
-# │   ├── _index.md
-# │   ├── about.md
-# │   ├── contact.md
-# │   └── posts/
-# │       └── azure-identity-types/
-# │           └── index.md
-# ├── static/
-# │   └── images/
-# ├── layouts/
-# │   ├── _default/
-# │   │   ├── baseof.html
-# │   │   ├── single.html
-# │   │   └── list.html
-# │   ├── partials/
-# │   │   ├── head.html
-# │   │   ├── header.html
-# │   │   └── footer.html
-# │   └── index.html
-# └── assets/
-#     └── css/
-#         └── main.css
