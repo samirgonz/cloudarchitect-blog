@@ -1,0 +1,194 @@
+baseURL = 'https://cloudarchitect-blog.netlify.app'
+languageCode = 'en-us'
+title = "Samir's Cloud Architecture Blog"
+theme = 'LoveIt'
+
+[params]
+version = "0.2.X"
+
+[params.author]
+name = "Samir Gonzalez"
+email = "samirgonz@gmail.com"
+link = ""
+
+[params]
+description = "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
+keywords = ["Azure", "Kubernetes", "Cloud", "DevOps", "Architecture"]
+
+[params.app]
+title = "Samir's Cloud Architecture Blog"
+noFavicon = false
+svgFavicon = ""
+themeColor = "#ffffff"
+iconColor = "#5bbad5"
+tileColor = "#da532c"
+
+[params.search]
+enable = true
+type = "fuse"
+contentLength = 4000
+placeholder = ""
+maxResultLength = 10
+snippetLength = 30
+highlightTag = "em"
+absoluteURL = false
+
+[params.header]
+desktopMode = "fixed"
+mobileMode = "auto"
+
+[params.header.title]
+logo = ""
+name = "Samir's Cloud Architecture Blog"
+pre = ""
+post = ""
+typeit = false
+
+[params.footer]
+enable = true
+custom = ''
+hugo = false
+copyright = true
+author = true
+since = 2024
+
+[params.footer.icp]
+enable = false
+number = ""
+url = ""
+
+[params.footer.license]
+enable = false
+url = ""
+info = ""
+
+[params.section]
+paginate = 20
+dateFormat = "01-02"
+rss = 10
+
+[params.list]
+paginate = 20
+dateFormat = "01-02"
+rss = 10
+
+[params.home]
+rss = 10
+
+[params.home.profile]
+enable = true
+gravatarEmail = ""
+avatarURL = "/images/avatar.png"
+title = "Cloud Solutions Architect"
+subtitle = "Sharing insights on Azure, Kubernetes, and cloud-native technologies"
+typeit = true
+social = true
+disclaimer = ""
+
+[params.home.posts]
+enable = true
+paginate = 6
+defaultHiddenFromHomePage = false
+
+[params.social]
+GitHub = "https://github.com/samirgonz"
+Linkedin = "https://www.linkedin.com/in/samirgonz/"
+Email = "samirgonz@gmail.com"
+
+[params.page]
+hiddenFromHomePage = false
+hiddenFromSearch = false
+twemoji = false
+lightgallery = false
+ruby = true
+fraction = true
+fontawesome = true
+linkToMarkdown = true
+rssFullText = false
+
+[params.page.toc]
+enable = true
+keepStatic = true
+auto = true
+
+[params.page.code]
+copy = true
+maxShownLines = 50
+
+[params.page.math]
+enable = false
+inlineLeftDelimiter = ""
+inlineRightDelimiter = ""
+blockLeftDelimiter = ""
+blockRightDelimiter = ""
+copyTex = true
+mhchem = true
+
+[params.page.share]
+enable = true
+Twitter = true
+Facebook = true
+Linkedin = true
+Whatsapp = false
+Pinterest = false
+Tumblr = false
+HackerNews = true
+Reddit = true
+VK = false
+
+[params.page.comment]
+enable = false
+
+[params.seo.publisher]
+name = "Samir Gonzalez"
+logoUrl = "/images/avatar.png"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+codeFences = true
+guessSyntax = true
+lineNos = true
+lineNumbersInTable = true
+noClasses = false
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 6
+
+[[menu.main]]
+identifier = "home"
+pre = ""
+post = ""
+name = "Home"
+url = "/"
+title = ""
+weight = 1
+
+[[menu.main]]
+identifier = "posts"
+pre = ""
+post = ""
+name = "Posts"
+url = "/posts/"
+title = ""
+weight = 2
+
+[[menu.main]]
+identifier = "about"
+pre = ""
+post = ""
+name = "About"
+url = "/about/"
+title = ""
+weight = 3
+
+[[menu.main]]
+identifier = "contact"
+pre = ""
+post = ""
+name = "Contact"
+url = "/contact/"
+title = ""
+weight = 4
