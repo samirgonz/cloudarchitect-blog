@@ -1,6 +1,6 @@
 ---
 title: "Azure Routing Rules in Hybrid Environments: A Complete Guide"
-date: 2024-08-29
+date: 2025-01-01
 description: "A comprehensive guide to understanding Azure's routing precedence, system routes, BGP behavior, and the hidden components that affect traffic flow in hybrid cloud environments."
 tags: ["Azure", "Networking", "Routing", "Hybrid Cloud", "BGP", "ExpressRoute", "VPN", "UDR", "Network Architecture"]
 ---
@@ -64,15 +64,12 @@ graph TB
     end
     
     subgraph "On-Premises"
-        OnPrem[10.1.5.0/24 Advertised via BGP]
+        OnPrem[10.1.5.0/24<br/>Advertised via BGP]
     end
     
-    Hub <--> Spoke
-    OnPrem --> ERGW
+    Hub <--> |Peering<br/>System Route: 10.1.0.0/16| Spoke
+    OnPrem --> |BGP Route: 10.1.5.0/24<br/>(More Specific!)| ERGW
     ERGW --> Hub
-    
-    Hub -.-> |System Route: 10.1.0.0/16 WINS| Spoke
-    OnPrem -.-> |BGP Route: 10.1.5.0/24 More Specific| ERGW
     
     style Spoke fill:#99ff99
     style OnPrem fill:#ffcc99
@@ -94,13 +91,13 @@ sequenceDiagram
     
     Note over VM: Traffic to Azure Storage IP
     VM->>SE: Check Service Endpoint Route
-    SE->>VM: Match found - specific IP ranges
+    SE->>VM: Match found (specific IP ranges)
     
-    Note over BGP: BGP advertises same IP range from on-premises proxy
+    Note over BGP: BGP advertises same IP range<br/>from on-premises proxy
     
-    VM->>Storage: Traffic flows directly via Service Endpoint Azure backbone
+    VM->>Storage: Traffic flows directly via<br/>Service Endpoint (Azure backbone)
     
-    Note over VM,OnPrem: BGP route ignored despite being equally or more specific
+    Note over VM,OnPrem: BGP route ignored despite<br/>being equally or more specific
 ```
 
 **Result**: Service endpoint system routes always take precedence over BGP routes for Azure service traffic, ensuring security and performance.
@@ -127,14 +124,14 @@ BGP Route: 10.0.2.0/24 → Virtual Network Gateway (advertised from on-premises)
 ```mermaid
 graph TD
     subgraph "Common Mistake Scenario"
-        A[Network Admin] --> B[Advertises Spoke VNet prefixes via BGP]
-        B --> C[Expects traffic to route through on-premises]
-        C --> D[Traffic still uses VNet peering]
+        A[Network Admin] --> B[Advertises Spoke VNet<br/>prefixes via BGP]
+        B --> C[Expects traffic to route<br/>through on-premises]
+        C --> D[❌ Traffic still uses<br/>VNet peering]
     end
     
     subgraph "Correct Approach"
-        E[Network Admin] --> F[Uses UDRs to override system routes]
-        F --> G[Traffic flows as intended]
+        E[Network Admin] --> F[Uses UDRs to override<br/>system routes]
+        F --> G[✅ Traffic flows as<br/>intended]
     end
     
     style D fill:#ffcccc
