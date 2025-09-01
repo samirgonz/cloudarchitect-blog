@@ -17,9 +17,9 @@ Azure follows a specific priority order when multiple routes contain the same ad
 graph TD
     A[Traffic Originates] --> B{Longest Prefix Match First}
     B --> C{If Same Prefix Length}
-    C --> D[1. User Defined Routes - UDR]
-    D --> E[2. BGP Routes from Gateways]
-    E --> F[3. System Routes]
+    C --> D[Priority 1: User Defined Routes UDR]
+    D --> E[Priority 2: BGP Routes from Gateways]
+    E --> F[Priority 3: System Routes]
     
     B --> G{Most Specific Prefix Wins}
     C --> G
@@ -64,12 +64,15 @@ graph TB
     end
     
     subgraph "On-Premises"
-        OnPrem[10.1.5.0/24<br/>Advertised via BGP]
+        OnPrem[10.1.5.0/24 Advertised via BGP]
     end
     
-    Hub <--> |Peering<br/>System Route: 10.1.0.0/16| Spoke
-    OnPrem --> |BGP Route: 10.1.5.0/24<br/>(More Specific!)| ERGW
+    Hub <--> Spoke
+    OnPrem --> ERGW
     ERGW --> Hub
+    
+    Hub -.-> |System Route: 10.1.0.0/16 WINS| Spoke
+    OnPrem -.-> |BGP Route: 10.1.5.0/24 More Specific| ERGW
     
     style Spoke fill:#99ff99
     style OnPrem fill:#ffcc99
@@ -91,13 +94,13 @@ sequenceDiagram
     
     Note over VM: Traffic to Azure Storage IP
     VM->>SE: Check Service Endpoint Route
-    SE->>VM: Match found (specific IP ranges)
+    SE->>VM: Match found - specific IP ranges
     
-    Note over BGP: BGP advertises same IP range<br/>from on-premises proxy
+    Note over BGP: BGP advertises same IP range from on-premises proxy
     
-    VM->>Storage: Traffic flows directly via<br/>Service Endpoint (Azure backbone)
+    VM->>Storage: Traffic flows directly via Service Endpoint Azure backbone
     
-    Note over VM,OnPrem: BGP route ignored despite<br/>being equally or more specific
+    Note over VM,OnPrem: BGP route ignored despite being equally or more specific
 ```
 
 **Result**: Service endpoint system routes always take precedence over BGP routes for Azure service traffic, ensuring security and performance.
@@ -111,7 +114,6 @@ sequenceDiagram
 
 # On-premises advertises specific route via BGP:
 # 10.0.2.0/24 → On-premises proxy/firewall
-
 System Route: 10.0.2.0/24 → VNetLocal (automatic, invisible)
 BGP Route: 10.0.2.0/24 → Virtual Network Gateway (advertised from on-premises)
 ```
@@ -125,14 +127,14 @@ BGP Route: 10.0.2.0/24 → Virtual Network Gateway (advertised from on-premises)
 ```mermaid
 graph TD
     subgraph "Common Mistake Scenario"
-        A[Network Admin] --> B[Advertises Spoke VNet<br/>prefixes via BGP]
-        B --> C[Expects traffic to route<br/>through on-premises]
-        C --> D[❌ Traffic still uses<br/>VNet peering]
+        A[Network Admin] --> B[Advertises Spoke VNet prefixes via BGP]
+        B --> C[Expects traffic to route through on-premises]
+        C --> D[Traffic still uses VNet peering]
     end
     
     subgraph "Correct Approach"
-        E[Network Admin] --> F[Uses UDRs to override<br/>system routes]
-        F --> G[✅ Traffic flows as<br/>intended]
+        E[Network Admin] --> F[Uses UDRs to override system routes]
+        F --> G[Traffic flows as intended]
     end
     
     style D fill:#ffcccc
@@ -290,35 +292,6 @@ graph TD
     
     G[Azure Subnet] --> H[Route Table]
     H --> F
-    
-    style D fill:#99ccff
-    style F fill:#cceeff
-```
-
-### BGP Route Propagation Behavior
-
-**ExpressRoute vs VPN Priority**: When the same route is advertised via both ExpressRoute and VPN:
-1. ExpressRoute takes precedence (lower AS path)
-2. VPN becomes backup path
-3. Automatic failover occurs if ExpressRoute fails
-
-```mermaid
-sequenceDiagram
-    participant OnPrem as On-Premises
-    participant ER as ExpressRoute
-    participant VPN as VPN Gateway
-    participant Azure as Azure VNet
-    
-    OnPrem->>ER: Advertise 192.168.0.0/16
-    OnPrem->>VPN: Advertise 192.168.0.0/16
-    
-    ER->>Azure: BGP: 192.168.0.0/16 (AS Path: 65001)
-    VPN->>Azure: BGP: 192.168.0.0/16 (AS Path: 65001,65002)
-    
-    Note over Azure: ExpressRoute preferred<br/>(shorter AS path)
-    
-    ER--xAzure: ExpressRoute fails
-    Note over Azure: Automatic failover to VPN
 ```
 
 ## 3. System Routes - Third Priority (When Same Prefix)
@@ -359,6 +332,32 @@ graph TB
     style E fill:#99ff99
     style F fill:#99ff99
     style G fill:#99ff99
+```
+
+### BGP Route Propagation Behavior
+
+**ExpressRoute vs VPN Priority**: When the same route is advertised via both ExpressRoute and VPN:
+1. ExpressRoute takes precedence (lower AS path)
+2. VPN becomes backup path
+3. Automatic failover occurs if ExpressRoute fails
+
+```mermaid
+sequenceDiagram
+    participant OnPrem as On-Premises
+    participant ER as ExpressRoute
+    participant VPN as VPN Gateway
+    participant Azure as Azure VNet
+    
+    OnPrem->>ER: Advertise 192.168.0.0/16
+    OnPrem->>VPN: Advertise 192.168.0.0/16
+    
+    ER->>Azure: BGP: 192.168.0.0/16 (AS Path: 65001)
+    VPN->>Azure: BGP: 192.168.0.0/16 (AS Path: 65001,65002)
+    
+    Note over Azure: ExpressRoute preferred<br/>(shorter AS path)
+    
+    ER--xAzure: ExpressRoute fails
+    Note over Azure: Automatic failover to VPN
 ```
 
 ## 4. Default Route (0.0.0.0/0) - Lowest Priority
@@ -626,6 +625,8 @@ The most common troubleshooting mistake is assuming route type priority applies 
 
 The key to successful hybrid routing is planning, documentation, and continuous monitoring. With proper design, your hybrid environment will provide reliable, secure connectivity between on-premises and Azure resources.
 
+Need help with your hybrid Azure networking? Connect with me on LinkedIn for consulting opportunities.
+
 ---
 
-*Need help with your hybrid Azure networking? Understanding these routing fundamentals is crucial for building robust, predictable network architectures that scale with your business needs.*
+*Understanding these routing fundamentals is crucial for building robust, predictable network architectures that scale with your business needs.*
