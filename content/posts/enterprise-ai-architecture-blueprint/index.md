@@ -21,22 +21,36 @@ Modern enterprises face a fundamental tension in their AI strategy: the need for
 The hybrid AI architecture fundamentally separates the compute-intensive training phase from the data-sensitive inference phase, creating a clear boundary between public cloud scalability and private data protection.
 
 ```mermaid
-C4Context
-    title System Context Diagram for Hybrid AI Architecture
-
-    Person(data_scientist, "Data Scientist", "Develops and trains AI models")
-    System_Ext(corp_users, "Corporate Users", "Consume AI-powered applications")
-
-    System(azure_cloud, "Azure Public Cloud", "Scalable model training environment")
-    System(on_premise, "On-Premise Private Cloud", "Secure, low-latency inference platform")
-
-    Rel(data_scientist, azure_cloud, "Trains models in", "HTTPS/SSH")
-    Rel(on_premise, corp_users, "Serves inferences to", "REST/gRPC APIs")
-
-    Boundary(data_pipeline, "Data Pipeline & MLOps", "Orchestration Layer")
-    Rel(azure_cloud, on_premise, "Deploys trained models to", "Secure Model Transfer")
-    Rel(azure_cloud, data_pipeline, "Orchestrates training", "Azure ML Pipelines")
-    Rel(on_premise, data_pipeline, "Manages inference", "OpenShift Operators")
+graph TB
+    subgraph "Users & Applications"
+        DS[Data Scientist]
+        CU[Corporate Users]
+    end
+    
+    subgraph "Azure Public Cloud"
+        AC[Azure ML<br/>Training Environment]
+        ADLS[Azure Data Lake<br/>Storage]
+        AKS[Azure Kubernetes<br/>Service]
+    end
+    
+    subgraph "On-Premise Private Cloud"
+        OS[OpenShift AI<br/>Inference Platform]
+        NU[Nutanix<br/>Infrastructure]
+        NO[Nutanix Objects<br/>Storage]
+    end
+    
+    subgraph "MLOps Pipeline"
+        MP[Model Pipeline<br/>Orchestration]
+    end
+    
+    DS -->|Trains models| AC
+    AC --> ADLS
+    AC --> AKS
+    AC -->|Model artifacts| MP
+    MP -->|Deploy models| OS
+    OS --> NU
+    OS --> NO
+    OS -->|Serves inferences| CU
 ```
 
 **Critical Consideration:** This separation creates operational complexity and potential points of failure at the cloud-to-premise boundary. Organizations must invest significantly in MLOps tooling and processes to manage this hybrid workflow effectively.
