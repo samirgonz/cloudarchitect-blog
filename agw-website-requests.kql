@@ -1,0 +1,107 @@
+// KQL Query to retrieve all requests for a specific website on Azure Application Gateway
+// Application Gateway Name: agwafaz2
+
+// STEP 1: RUN THIS FIRST to discover the actual field names in your Application Gateway logs
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| take 1
+| project-away TenantId, SourceSystem, _ResourceId, Type, _SubscriptionId
+
+// STEP 2: After running the above query, use this working query with only guaranteed fields
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| where host_s == "your-website.com"  // Replace with your specific website hostname
+| project 
+    TimeGenerated,
+    Resource,
+    Category,
+    host_s,
+    clientIP_s,
+    requestUri_s,
+    httpMethod_s,
+    userAgent_s
+| order by TimeGenerated desc
+| limit 1000
+*/
+
+// Alternative query with time filter (last 24 hours)
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| where host_s == "your-website.com"  // Replace with your specific website hostname
+| where TimeGenerated >= ago(24h)
+| project 
+    TimeGenerated,
+    clientIP_s,
+    httpMethod_s,
+    requestUri_s,
+    statusCode_s,  // Updated field name from httpStatus_s
+    timeTaken_d,
+    backendServerName_s,  // Updated field name from serverRouted_s
+    host_s
+| order by TimeGenerated desc
+*/
+
+// Query to get request count by status code for the website
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| where host_s == "your-website.com"  // Replace with your specific website hostname
+| where TimeGenerated >= ago(24h)
+| summarize RequestCount = count() by statusCode_s  // Updated field name from httpStatus_s
+| order by RequestCount desc
+*/
+
+// Query to get top requesting client IPs
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| where host_s == "your-website.com"  // Replace with your specific website hostname
+| where TimeGenerated >= ago(24h)
+| summarize RequestCount = count() by clientIP_s
+| order by RequestCount desc
+| limit 20
+*/
+
+// TROUBLESHOOTING QUERY: First run this query to see what fields actually exist in your logs
+// This will help identify the correct field names for your environment
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" 
+| where ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| take 1
+| project-away _ResourceId, _SubscriptionId, TenantId, SourceSystem
+*/
+
+// Query to analyze response times
+/*
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and ResourceType == "APPLICATIONGATEWAYS"
+| where Resource == "AGWAFAZ2"
+| where Category == "ApplicationGatewayAccessLog"
+| where host_s == "your-website.com"  // Replace with your specific website hostname
+| where TimeGenerated >= ago(24h)
+| where isnotempty(timeTaken_d)  // Updated from timeTaken_s to timeTaken_d
+| extend ResponseTimeMs = timeTaken_d  // No need to convert as it's already double
+| summarize 
+    AvgResponseTime = avg(ResponseTimeMs),
+    MaxResponseTime = max(ResponseTimeMs),
+    MinResponseTime = min(ResponseTimeMs),
+    P95ResponseTime = percentile(ResponseTimeMs, 95),
+    RequestCount = count()
+    by bin(TimeGenerated, 1h)
+| order by TimeGenerated desc
+*/
