@@ -1,4 +1,4 @@
-baseURL = 'https://cloudarchitect-blog.netlify.app'
+baseURL = 'https://samirgonz.com'
 languageCode = 'en-us'
 title = "Samir's Cloud Architecture Blog"
 theme = 'LoveIt'
