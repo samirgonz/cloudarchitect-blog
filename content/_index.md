@@ -11,6 +11,7 @@ As a Cloud Solutions Architect with over 15 years of IT experience, I share prac
 - Azure, Hybrid & Multi-Cloud Architecture
 - Kubernetes, OpenShift & Container Orchestration
 - Infrastructure as Code with Terraform
+- FinOps & Cloud Financial Management
 - AI, Machine Learning & OpenShift AI
 - DevOps & Security Best Practices
 - Nutanix Enterprise Solutions
