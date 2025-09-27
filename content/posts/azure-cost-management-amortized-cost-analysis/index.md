@@ -1,6 +1,6 @@
 ---
 title: "Azure Cost Management: Deep Dive into Amortized Cost Analysis"
-date: 2025-01-27
+date: 2025-09-27
 description: "A comprehensive guide to understanding Azure cost data through amortized cost analysis. Learn how to navigate the Azure Cost Management export dataset, understand pricing models, and perform financial calculations for effective cloud cost optimization."
 tags: ["Azure", "Cost Management", "FinOps", "Cloud Financial Management", "Amortized Cost", "Reserved Instances", "Cost Optimization", "Financial Analysis"]
 ---

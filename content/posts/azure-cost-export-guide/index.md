@@ -1,6 +1,6 @@
 ---
 title: "How to Export Azure Cost Management Data: Complete Step-by-Step Guide"
-date: 2025-01-27
+date: 2025-09-27
 description: "A comprehensive step-by-step guide to exporting Azure Cost Management data for financial analysis, FOCUS standardization, and ongoing cost monitoring. Learn how to configure exports for amortized cost analysis and optimize your FinOps processes."
 tags: ["Azure", "Cost Management", "FinOps", "Data Export", "Financial Analysis", "FOCUS", "Cloud Financial Management", "Cost Optimization"]
 ---

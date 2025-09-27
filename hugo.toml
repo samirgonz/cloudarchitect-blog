@@ -79,8 +79,8 @@ paginate = 6
 defaultHiddenFromHomePage = false
 
 [params.social]
-GitHub = "https://github.com/samirgonz"
-Linkedin = "https://www.linkedin.com/in/samirgonz/"
+GitHub = "samirgonz"
+Linkedin = "samirgonz"
 Email = "samirgonz@gmail.com"
 
 [params.page]
