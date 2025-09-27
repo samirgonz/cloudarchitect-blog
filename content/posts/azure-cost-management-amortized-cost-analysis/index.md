@@ -11,6 +11,8 @@ Understanding Azure cost data is crucial for effective cloud financial managemen
 
 ## Understanding Azure Cost Management Export Dataset
 
+**Prerequisites:** Before diving into cost analysis, you'll need to export your Azure cost data. If you haven't set up cost exports yet, follow our comprehensive guide: [How to Export Azure Cost Management Data: Complete Step-by-Step Guide](/posts/azure-cost-export-guide/)
+
 ### What is Amortized Cost?
 
 Amortized cost spreads the upfront cost of reservations across the reservation term, providing a true cost-per-hour view that includes both reserved and on-demand usage patterns.
